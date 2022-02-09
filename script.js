@@ -34,18 +34,36 @@ function divide(a,b){
     }
     return 0;
 }
-
+function operate(a,b,operator){
+    switch(operator){
+        case '+':
+            return add(a,b);
+        case '-':
+            return substract(a,b);
+        case '*':
+            return multiply(a,b);
+        case '÷':
+            return divide(a,b);
+    }
+}
+console.log(operate(2,4,'÷'));
 let previous=0;
 let current=0;
+let chosenOperation ;
 operator.forEach(operation=>{
     operation.addEventListener('click',()=>{
         previous = parseInt(display.textContent);
         console.log(typeof(previous));
-        let result = display.textContent;
-        console.log(result);
+        chosenOperation = operation.textContent;
+        display.textContent = '';
     })
 })
-console.log(previous);
+console.log(chosenOperation);
 equals.addEventListener('click',()=>{
-    
+    if( chosenOperation != null){
+        b = parseInt(display.textContent);
+        console.log(previous,b,chosenOperation);
+        let result = operate(previous,b,chosenOperation);
+        display.textContent = result;
+    }
 })
