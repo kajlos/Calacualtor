@@ -4,7 +4,7 @@ const clear = document.querySelector('.clear');
 const operator = document.querySelectorAll('.operator');
 const display = document.querySelector('.display');
 const equals = document.querySelector('.equals');
-
+const pointer = document.querySelector('.pointer');
 number.forEach(button =>{
     button.addEventListener('click',()=>{
         display.textContent = display.textContent + button.textContent;
@@ -46,24 +46,64 @@ function operate(a,b,operator){
             return divide(a,b);
     }
 }
-console.log(operate(2,4,'÷'));
-let previous=0;
+let previous;
 let current=0;
 let chosenOperation ;
 operator.forEach(operation=>{
     operation.addEventListener('click',()=>{
-        previous = parseInt(display.textContent);
-        console.log(typeof(previous));
-        chosenOperation = operation.textContent;
-        display.textContent = '';
+        if (chosenOperation == undefined){
+            previous = parseFloat(display.textContent);
+            chosenOperation = operation.textContent;
+            display.textContent = '';
+        }else{
+            chosenOperation = operation.textContent;
+        }
     })
 })
-console.log(chosenOperation);
 equals.addEventListener('click',()=>{
-    if( chosenOperation != null){
-        b = parseInt(display.textContent);
+    if( chosenOperation != null && display.textContent !='' && previous !=''){
+        b = parseFloat(display.textContent);
         console.log(previous,b,chosenOperation);
         let result = operate(previous,b,chosenOperation);
-        display.textContent = result;
+        let round= Math.round(result * 100) / 100;
+        display.textContent = round;
+        chosenOperation = undefined;
+    }
+})
+
+pointer.addEventListener('click',()=>{
+    let string = display.textContent;
+    if(!string.includes('.')){
+        display.textContent += '.';
+    }
+})
+
+window.addEventListener('keydown',k=>{
+    key=k.key;
+    console.log(key);
+    switch(key){
+        case '0': display.textContent += key;
+        break;
+        case '1': display.textContent += key;
+        break;
+        case '2': display.textContent += key;
+        break;
+        case '3': display.textContent += key;
+        break;
+        case '4': display.textContent += key;
+        break;
+        case '5': display.textContent += key;
+        break;
+        case '6': display.textContent += key;
+        break;
+        case '7': display.textContent += key;
+        break;
+        case '8': display.textContent += key;
+        break;
+        case '9': display.textContent += key;
+        break;
+        case 'Backspace': const text = display.textContent.slice(0,-1);
+        display.textContent=text;
+        break;
     }
 })
