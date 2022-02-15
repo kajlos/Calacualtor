@@ -68,3 +68,9 @@ button:hover{
 button:active{
     background-color: darkgray;
 }
+h3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:6px;
+}
